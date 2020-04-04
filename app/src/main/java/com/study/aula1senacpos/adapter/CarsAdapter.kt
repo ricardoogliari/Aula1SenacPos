@@ -31,7 +31,9 @@ class CarsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.viewRoot.txt_detail.text = "${myDataset[position].model} - ${myDataset[position].manufacturer}"
         holder.viewRoot.setOnClickListener {
-            context.startActivity(Intent(context, DetalheCarro::class.java))
+            val intent = Intent(context, DetalheCarro::class.java)
+            intent.putExtra("car", myDataset[position])
+            context.startActivity(intent)
         }
     }
 
