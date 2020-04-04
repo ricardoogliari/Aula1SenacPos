@@ -16,7 +16,9 @@ class CarsAdapter(private val myDataset: List<Car>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int): CarsAdapter.MyViewHolder {
-        val textView = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+        val textView = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item, parent, false)
 
         return MyViewHolder(textView)
     }
