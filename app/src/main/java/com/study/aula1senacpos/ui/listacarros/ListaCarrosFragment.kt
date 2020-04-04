@@ -1,5 +1,6 @@
 package com.study.aula1senacpos.ui.listacarros
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -46,7 +47,7 @@ class ListaCarrosFragment : Fragment() {
 
         viewModel.cars.observe(viewLifecycleOwner, Observer {
             viewModel.cars.value?.let {
-                viewAdapter = CarsAdapter(it)
+                viewAdapter = CarsAdapter(it, activity as Context)
                 rv_cars.adapter = viewAdapter;
             }
         })
