@@ -8,7 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.study.aula1senacpos.R
+import com.study.aula1senacpos.adapter.CarsAdapter
+import kotlinx.android.synthetic.main.lista_carros_fragment.*
 
 class ListaCarrosFragment : Fragment() {
 
@@ -25,12 +29,22 @@ class ListaCarrosFragment : Fragment() {
         return inflater.inflate(R.layout.lista_carros_fragment, container, false)
     }
 
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)
-            .get(ListaCarrosViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ListaCarrosViewModel::class.java)
 
-        Log.e("teste", "viewModel ${viewModel.toString()}")
+        viewManager = LinearLayoutManager(activity)
+        viewAdapter = CarsAdapter(viewModel.cars)
+
+        rv_cars.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
     }
+
 
 }
