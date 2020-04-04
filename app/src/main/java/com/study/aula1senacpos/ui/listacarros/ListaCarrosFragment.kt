@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,16 +36,21 @@ class ListaCarrosFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ListaCarrosViewModel::class.java)
-        viewModel.getCars()
 
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = CarsAdapter(viewModel.cars)
 
         rv_cars.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-            adapter = viewAdapter
         }
+
+        viewModel.cars.observe(viewLifecycleOwner, Observer {
+            viewModel.cars.value?.let {
+                viewAdapter = CarsAdapter(it)
+                rv_cars.adapter = viewAdapter;
+            }
+        })
+        viewModel.getCars();
     }
 
 
